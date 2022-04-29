@@ -9,14 +9,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Startup Services
-        env: 
-          SECRET_KEY: ${{ secrets.DB_NAME }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DEBUG: ${{ secrets.DEBUG }}
         run: docker-compose -f docker-compose.test.yml up -d
         
       - name: Await Services
@@ -24,14 +16,6 @@ jobs:
         with:
           time: '10s'
       - name: Show Services Logs
-        env: 
-          SECRET_KEY: ${{ secrets.DB_NAME }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DEBUG: ${{ secrets.DEBUG }}
         run: docker-compose -f docker-compose.test.yml logs      
       - name: Run Migrations
         run: bin/exec migrate
