@@ -12,6 +12,6 @@ __pycache__/
 .env
 # [Project]
 project/staticfiles
-# project/db/migrations/
+project/db/migrations/
 project/api/migrations/
 api/migrations/
