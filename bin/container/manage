@@ -2,4 +2,4 @@
 
 cd project
 
-python3 manage.py $*
+python manage.py $*
