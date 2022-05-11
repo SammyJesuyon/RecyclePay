@@ -1,6 +1,6 @@
 from django.db import models
 
-from project.db.models import Category, User
+from db.models import Category, User
 
 STATUS_CHOICES = [
     ("pending", "Pending"),
