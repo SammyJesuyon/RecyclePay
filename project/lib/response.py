@@ -14,16 +14,12 @@ class Response:
     def format(cls, data, errors):
         data, errors = cls.validate(data, errors)
 
-        message = 'success' if data and not errors else 'failure'
+        message = "success" if data and not errors else "failure"
 
         if not data and not errors:
-            raise InvalidResponse('Both data and errors cannot be None')
+            raise InvalidResponse("Both data and errors cannot be None")
 
-        return dict(
-            message=message,
-            data=data,
-            errors=errors,
-        )
+        return dict(message=message, data=data, errors=errors,)
 
     @classmethod
     def validate(cls, data, errors):
@@ -32,5 +28,4 @@ class Response:
             errors = None if errors is None else dict(errors)
             return (data, errors)
         except Exception:
-            raise InvalidResponse(
-                'None or dict-like structure expected for both data and errors')
+            raise InvalidResponse("None or dict-like structure expected for both data and errors")

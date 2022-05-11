@@ -1,6 +1,6 @@
 FROM python:3.9.0-alpine as base
 
-# Setup base image with require tools
+# Setup base image with required tools
 
 RUN apk update && apk add \
   bash \
