@@ -1,6 +1,7 @@
 from django.urls import path
+
 from .views.email_verification_view import VerifyEmail
 
 urlpatterns = [
-    path('api/v1/auth/verify/', VerifyEmail.as_view(), name='verify_email'),
+    path("auth/verify/<str:encoded_email>", VerifyEmail.as_view(), name="verify_email"),
 ]
