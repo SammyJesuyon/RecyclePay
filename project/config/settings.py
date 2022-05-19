@@ -110,10 +110,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 #     }
 # }
 
-<<<<<<< HEAD
 import os
-=======
->>>>>>> origin/main
 
 DATABASES = {
     "default": {
