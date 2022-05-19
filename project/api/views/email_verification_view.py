@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 
 class VerifyEmail(generics.GenericAPIView):
-    permissions_classes = (AllowAny,)
+    permission_classes = [AllowAny]
 
     def get(self, request, encoded_email):
         try:
