@@ -1,30 +1,23 @@
-from db.models.user_model import User
-from ..serializers.email_verification_serializer import EmailVerificationSerializer
+from db.models import User
 from rest_framework import generics, status
 from rest_framework.response import Response
-from ..utils import Util
+from rest_framework.permissions import AllowAny
+from lib.utils import Util
 
 
 class VerifyEmail(generics.GenericAPIView):
-    serializer_class = EmailVerificationSerializer
+    permissions_classes = (AllowAny,)
 
-    def post(self, request):
-        data = request.data
-        otp = data.get('otp', '')
-        email = data.get('email', '')
-        if otp is None or email is None:
-            return Response(data=dict(invalid_input="Please provide both otp and email"),
-                            status=status.HTTP_400_BAD_REQUEST)
-        get_user = User.objects.filter(email=email)
-        if not get_user.exists():
-            return Response(data=dict(invalid_email="please provide a valid registered email"),
-                            status=status.HTTP_400_BAD_REQUEST)
-        user = get_user[0]
-        if user.otp != otp:
-            return Response(data=dict(invalid_otp="please provide a valid otp code"),
-                            status=status.HTTP_400_BAD_REQUEST)
-        user.is_verified = True
-        user.save()
-        return Response(data={
-            "success": "Your account has been successfully verified"
-        }, status=status.HTTP_200_OK)
+    def get(self, request):
+        encoded_email = request.GET.get('')
+        try:
+            decoded_email = Util.decode_email(encoded_email)
+            user = User.objects.get(email=decoded_email)
+            if user is not None:
+                user.is_verified = True
+                user.save()
+                return Response(data={
+                    "success": "Your account has been successfully verified"
+                }, status=status.HTTP_200_OK)
+        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+            return Response(data={'Invalid activation link!'}, status=status.HTTP_400_BAD_REQUEST)
