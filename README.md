@@ -45,3 +45,4 @@ Currently, truthy tests has been provided in each of the application defined in 
 ```docker
 docker-compose exec api python project/manage.py test
 ```
+RecyclePay frontend Repo: https://github.com/SammyJesuyon/RecyclePay-Frontend
